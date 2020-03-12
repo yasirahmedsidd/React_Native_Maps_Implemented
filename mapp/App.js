@@ -1,38 +1,36 @@
-import React from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, View, Dimensions, StatusBar} from 'react-native';
+import MapView, {Marker, Circle} from 'react-native-maps';
 
 const App = () => {
+  const [padding, setPadding] = useState(1);
+  useEffect(() => {
+    setTimeout(() => {
+      setPadding(0);
+    }, 500);
+  }, []);
   return (
     <View style={styles.container}>
+      <StatusBar hidden />
       <MapView
-        mapType="standard"
-        zoomEnabled={false}
-        showsTraffic
-        showsBuildings={false}
-        showsIndoors={false}
-        showsTraffic={false}
-        showsCompass={false}
-        showsScale={false}
-        showsPointsOfInterest={false}
-        showsMyLocationButton={false}
-        // maxDelta={10}
-        // minDelta={10}
         liteMode={true}
-        style={styles.map}
+        style={{...styles.map, zIndex: -1, margin: padding}}
         region={{
           longitude: 67.362223,
           latitude: 25.015685,
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         }}>
-        <Marker
-          image={{
-            uri:
-              'http://icon-library.com/images/marker-icon-png/marker-icon-png-29.jpg',
+        <Circle
+          center={{
+            longitude: 67.362223,
+            latitude: 25.015685,
           }}
-          style={{height: 100}}
-          pinColor="green"
+          radius={500}
+          strokeColor="rgba(255,0,0,0.1)"
+          fillColor="rgba(255,0,0,0.1)"
+        />
+        <Marker
           coordinate={{
             longitude: 67.362223,
             latitude: 25.015685,
@@ -52,13 +50,14 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    alignItems: 'center',
-    justifyContent: 'center',
-    // backgroundColor: 'red',
+    backgroundColor: 'white',
+
+    // alignSelf: 'center',
+    // justifyContent: 'center',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-    // width: 300,
-    // height: 300,
+    width: '100%',
+    height: '100%',
   },
 });
