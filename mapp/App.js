@@ -3,11 +3,14 @@ import {StyleSheet, Text, View, Dimensions, StatusBar} from 'react-native';
 import MapView, {Marker, Circle} from 'react-native-maps';
 
 const App = () => {
-  const [padding, setPadding] = useState(1);
+  const [padding, setPadding] = useState(0);
   useEffect(() => {
     setTimeout(() => {
-      setPadding(0);
+      setPadding(-1);
     }, 500);
+    setTimeout(() => {
+      setPadding(0);
+    }, 1000);
   }, []);
   return (
     <View style={styles.container}>
